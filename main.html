@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+</head>
+<body>
+  <ul id="list">
+    <li>empty</li>
+    <li>empty</li>
+    <li>empty</li>
+    <li>empty</li>
+  </ul>
+  <input id= "excute_btn" type="button" value="execute" />
+  <script type ="text/javascript">
+    function person(){}
+    var p =new person();
+    p.name ='youngji';
+    p.introduce =function(){
+      return 'My name is ' +this.name;
+    }
+    document.write(p.introduce());
+
+    function Person(name){
+      this.name= name;
+      this.introduce =function(){
+        return 'My name is ' + this.name
+      }
+    }
+    var p1= Person('egoing');
+    document.write(p1.introduce()+"<br />");
+    var p2= Person('leezche');
+    document.write(p2.introduce()+"<br />");
+
+  </script>
+</body>
+</html>
