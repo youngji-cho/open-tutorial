@@ -1,0 +1,33 @@
+<html>
+<head>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" ></script>
+  <script type="text/javascript">
+  google.charts.load('current',{'packages':['corechart','annotationchart']});
+  google.charts.setOnLoadCallback(drawChart);
+  // 이제 부터 본격적인 함수
+  var URL = "https://docs.google.com/spreadsheets/d/1_WuRPqGhuuj7lGJn286_oU35kgUaMZ-fwpEzKART9L8/gviz/tq?sheet=통합&headers=1&range=A1:B200&tq=";
+
+  function drawChart() {
+    var query  = new google.visualization.Query(URL);
+    query.send(handleQueryResponse);
+  }
+
+  function handleQueryResponse(response){
+    if (response.isError()){
+      alert('Error in query:'+response.getMessage()+' '+response.getDetailedMessage());
+      return;
+    }
+    var data = response.getDataTable();
+    var chart = new google.visualization.AnnotationChart(document.getElementById('columnchart'));
+    var options ={
+      displayAnnotations: true
+    };
+    chart.draw(data, options);
+  }
+
+  </script>
+</head>
+<body>
+  <div id='columnchart'></div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<html>
+<head>
+  <script type='text/javascript' src ="https://www.gstatic.com/charts/loader.js"></script>
+  <script type='text/javascript'>
+    google.charts.load('current',{'packages':['annotationchart']});
+    google.charts.setOnLoadCallback(drawCharts);
+
+    function drawCharts(){
+      var data= new google.visualization.DataTable();
+      data.addColumn('date','기간');
+      data.addColumn('number','SMP 가격');
+
+      data.addRows([
+        [new Date(2017,1,1),86.31],
+        [new Date(2017,2,1),91.07],
+        [new Date(2017,3,1),92.06],
+        [new Date(2017,4,1),75.35],
+        [new Date(2017,5,1),79.14],
+        [new Date(2017,6,1),82.71],
+        [new Date(2017,7,1),76.79],
+        [new Date(2017,8,1),76.4],
+        [new Date(2017,9,1),73.21],
+        [new Date(2017,10,1),72.84]
+      ]);
+
+      var chart = new google.visualization.AnnotationChart(document.getElementById('chart_div'));
+      var options ={
+        displayAnnotations: true
+      };
+
+      chart.draw(data, options);
+    }
+  </script>
+</head>
+  <div id='chart_div'></div>
+<body>
+</body>
+</html>
