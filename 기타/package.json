@@ -1,0 +1,25 @@
+{
+  "name": "open-tutorial",
+  "version": "1.0.0",
+  "description": "practicing node.js",
+  "main": "box.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/youngji-cho/open-tutorial.git"
+  },
+  "author": "youngji",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/youngji-cho/open-tutorial/issues"
+  },
+  "homepage": "https://github.com/youngji-cho/open-tutorial#readme",
+  "dependencies": {
+    "express-session": "^1.15.6",
+    "jade": "^1.11.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0"
+  }
+}
