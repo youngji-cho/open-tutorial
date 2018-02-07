@@ -1,0 +1,24 @@
+<!-- http://api.jquery.com/append/ -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+      <p>
+        I would like to say:
+      </p>
+      <button id="removebutton">remove </button>
+      <button id="totalremovebutton">remove </button>
+    <script>
+      $('#removebutton').click(()=>{
+        $('p').prepend("<strong>Hello</strong>");
+      });
+      $('#totalremovebutton').click(()=>{
+        $('p').remove();
+      });
+    </script>
+
+    </body>
+</html>

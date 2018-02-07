@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <title>Web Chat</title>
+    </head>
+    <body>
+      <input type="text" id="text"/>
+      <input type="button" id="button" value="echo"/>
+      <script>
+      window.onload=function(){
+        var socket = io.connect();
+        socket.on('smart',(data)=>{
+          alert(data);
+        });
+        document.getElementById('button').onclick=function(){
+          var text = document.getElementById('text').value;
+          socket.emit('rint',text);
+        };
+      };
+      </script>
+    </body>
+</html>

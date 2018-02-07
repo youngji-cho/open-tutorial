@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+</head>
+<body>
+  <a id="t1" href="./demo.html">opentutorials</a>
+  <input id="t2" type="checkbox" checked="checked" />
+  <a id="target" href="http://opentutorials.org">opentutorials</a>
+  <ul>
+      <li class="marked">html</li>
+      <li>css</li>
+      <li id="active">JavaScript
+          <ul>
+              <li>JavaScript Core</li>
+              <li class="marked">DOM</li>
+              <li class="marked">BOM</li>
+          </ul>
+      </li>
+  </ul>
+  <script>
+    var list =document.getElementsByClassName('marked');
+    console.group('document');
+    for(let i=0; i <list.length; i++){
+      console.log(list[i].textContent);
+    }
+    console.groupEnd();
+    console.group('active');
+  </script>
+</body>
+</html>

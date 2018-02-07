@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <input id ="target" type='button' value="alert(window.href)">
+  <input type='button' onclick="window.open('bom.html')" value="window.open('bom.html')">
+  <script>
+  var t = document.getElementById('target');
+  t.onclick=function(){
+    t.onclick=function(){
+      alert('Hello World!');
+    }
+  }
+  </script>
+</body>
+</html>

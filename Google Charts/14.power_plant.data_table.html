@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+    google.charts.load('current',{'packages':['corechart','controls','table']});
+    google.charts.setOnLoadCallback(draw_table);
+    let power_plant_url=
+    'https://docs.google.com/spreadsheets/d/10kPQ6iaYILqy3iGdjTefh12XOtFKvHfdnOjOo_WqxNE/gviz/tq?sheet=power_plant';
+
+    function draw_table() {
+      let query  = new google.visualization.Query(power_plant_url);
+      query.setQuery('select *');
+      query.send(handleQueryResponse);
+    }
+
+    function handleQueryResponse(res){
+      if (res.isError()){
+        alert('Error in query:'+res.getMessage()+' '+res.getDetailedMessage());
+        return;
+      }
+      let data=res.getDataTable();
+      let table = new google.visualization.Table(document.getElementById('table_div'));
+      table.draw(data);
+    }
+
+
+    /*
+    let query = new google.visualization.Query(smp_url);
+    query.setQuery(smp_query);
+    */
+
+    </script>
+  </head>
+  <body>
+    <div id='table_div'> </div>
+  </body>
+</html>

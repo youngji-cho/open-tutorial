@@ -1,0 +1,40 @@
+<!-- http://api.jquery.com/toggleClass/ -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script>
+        $(document).ready(function(){
+          $("button").click(function(){
+            $("p").hide();
+          });
+        });
+        $(function(){
+          $("#p1").click(function(){
+          $(this).hide();
+          })
+        });
+        $(function(){
+          $('#p2').mouseenter(function(){
+            alert("You entered p2");
+          })
+        });
+        $(function(){
+          $('#p2').hover(function(){
+            alert("")
+
+
+          })
+        });
+
+
+        </script>
+    </head>
+    <body>
+      <p> This is heading</p>
+      <p id='p1'> This is p1</p>
+      <p id='p2'> This is p2</p>
+      <button>Click to hide paragraph</button>
+    </body>
+</html>

@@ -1,0 +1,15 @@
+extends ./layout.pug
+block title
+  form(action='/Arinfo' method='post')
+    p
+      textarea(type='text' name='cmarea' placeholder='관할지역코드(숫자)')
+    p
+      textarea(type='text' name='sparea' placeholder='용도지역코드(문자)')
+    p
+      textarea(type='text' name='page' placeholder='페이지')
+    p
+      textarea(type='text' name='rows' placeholder='개수')
+    p
+      input(type='submit')
+block content
+  others

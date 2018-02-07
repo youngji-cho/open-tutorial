@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <form id="target" action="result.html">
+    <label for="name"></label>
+    <input id="name" type="name"/>
+    <input type ="submit"/>
+  </form>
+  <script>
+  let t=document.getElementById('target');
+  t.addEventListener('blur',function(event){
+    alert('blur');
+  });
+  t.addEventListener('focus',function(event){
+    alert('focus');
+  });
+  </script>
+</body>
+</html>

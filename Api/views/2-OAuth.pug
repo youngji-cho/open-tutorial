@@ -1,0 +1,7 @@
+html
+  head
+    script(src='./2-OAuth.js')
+    script(async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()")
+  body
+    button(id="signin-button" onclick="handleSignInClick()") Sign In
+    button(id="signout-button" onclick="handleSignOutClick()") Sign Out

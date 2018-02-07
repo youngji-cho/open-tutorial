@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+    google.charts.load('current',{'packages':['corechart','controls','table']});
+    google.charts.setOnLoadCallback(drawChart);
+    let smp_url= 'https://docs.google.com/spreadsheets/d/1_WuRPqGhuuj7lGJn286_oU35kgUaMZ-fwpEzKART9L8/gviz/tq?sheet=SMP&tq=select%20A%2C%20B%20where%20A%20%3E%20date%20%222014-7-01%22';
+
+
+
+    function drawChart() {
+      let query  = new google.visualization.Query(smp_url);
+      query.setQuery('select A, B where A > date "2015-01-01" and A < date "2017-01-01"');
+      query.send(handleQueryResponse);
+    }
+
+    function handleQueryResponse(res){
+      if (res.isError()){
+        alert('Error in query:'+res.getMessage()+' '+res.getDetailedMessage());
+        return;
+      }
+      let data=res.getDataTable();
+      let table = new google.visualization.Table(document.getElementById('table_div'));
+      table.draw(data);
+    }
+
+
+    /*
+    let query = new google.visualization.Query(smp_url);
+    query.setQuery(smp_query);
+    */
+
+    </script>
+  </head>
+  <body>
+    <div id='table_div'> </div>
+  </body>
+</html>
