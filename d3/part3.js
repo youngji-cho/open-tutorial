@@ -1,43 +1,36 @@
-/*D3 scales are functions with parameters that you define.
-
-A scale input : domain
-output: range
+/*
+4 types of axis: d3.axisTop / d3.axisBottom/d3.axisLeft/d3.axisRight 2
+ex) var xAxis= d3.
+g element is a group element. group elements are invisible
 */
 
 const dataset = [
-                [5, 20], [480, 90], [250, 50], [100, 33], [330, 95],
-                [410, 12], [475, 44], [25, 67], [85, 21], [220, 88]
+                  [   5,   20 ],[ 480,   90 ],[ 250,   50 ],
+                  [ 100,   33 ],[ 330,   95 ],[ 410,   12 ],
+                  [ 475,   44 ],[  25,   67 ],[  85,   21 ],
+                  [ 220,   88 ]
               ];
-const dataset1 =[
-  [85, 21],
-  [480, 90],
-  [5, 20]
-]
-let w =1000;
-let h =400;
-let padding=80;
+let width =1000,
+  height =500;
 
-const xScale =d3.scaleLinear()
-  .domain([0,d3.max(dataset,function(d){
-    return d[0]
-  })])
-  .range([padding,w-padding]);
-const xAxis = d3.axisBottom(xScale);
-
-const yScale =d3.scaleLinear()
-  .domain([0,d3.max(dataset,function(d){
-    return d[1]
-  })])
-  .range([h-padding,padding]);
-
-const yAxis=d3.axisLeft(yScale)
-
-const svg =d3.select("body")
+const scatterSvg=d3.select("body")
   .append("svg")
-  .attr("width",w)
-  .attr("height",h);
+  .attr("width",width)
+  .attr("height",height);
 
-svg.selectAll("circle")
+const xScale=d3.scaleLinear()
+  .domain([0,d3.max(dataset,function(d){
+    return d[0];
+  })])
+  .range([width*0.1,width*0.9]);
+
+const yScale=d3.scaleLinear()
+  .domain([0,d3.max(dataset,function(d){
+    return d[1];
+  })])
+  .range([height*0.1,height*0.9]);
+
+scatterSvg.selectAll("circle")
   .data(dataset)
   .enter()
   .append("circle")
@@ -47,9 +40,9 @@ svg.selectAll("circle")
   .attr("cy",function(d){
     return yScale(d[1]);
   })
-  .attr("r",3);
+  .attr("r",10);
 
-svg.selectAll("text")
+scatterSvg.selectAll("text")
   .data(dataset)
   .enter()
   .append("text")
@@ -64,11 +57,16 @@ svg.selectAll("text")
   })
   .style("fill","red");
 
-svg.append("g")
-  .attr("class","axis")
-  .attr("transform","translate(0,"+(h-padding)+")")
+
+
+const xAxis =d3.axisBottom(xScale);
+const yAxis=d3.axisRight(yScale);
+
+
+scatterSvg.append("g")
+  .attr("transform",`translate(0,${height*0.95})`)
   .call(xAxis);
 
-svg.append("g")
-  .attr("class","axis")
+scatterSvg.append("g")
+  .attr("transform",`translate(${width*0.05},0)`)
   .call(yAxis);

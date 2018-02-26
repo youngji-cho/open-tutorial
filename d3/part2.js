@@ -1,30 +1,54 @@
-const dataset = [5,10,15,20,25];
-const dataset2D =  [[50,100],[150,200]];
+const dataset = [100,200,300,400,500];
+const w =1000,
+  h =300;
 
-d3.select("body")
-  .selectAll("div")
+const xScale = d3.scaleLinear()
+  .domain([0,d3.max(dataset,function(d){
+    return d[0];
+  })])
+  .range([0,w]);
+
+const yScale = d3.scaleLinear()
+  .domain([0,d3.max(dataset,function(d){
+    return d;
+  })])
+  .range([0,h]);
+
+const ordinalScale= d3.scaleOridinal ()
+  .domain([0,10])
+  .range([0,h]);
+
+const rectsvg= d3.select("body")
+  .append("svg")
+  .attr("width",w)
+  .attr("height",h);
+
+rectsvg.selectAll("rect")
   .data(dataset)
   .enter()
-  .append("div")
-  .attr("class","bar")
-  .style("height",function(d){
-    let height =d*5;
-    return `${height}px`;
+  .append("rect")
+  .attr("width",20)
+  .attr("height",function(d){
+    return yScale(d);
   })
+  .attr("y",function(d){
+    return h-yScale(d);
+  })
+  .attr("x",function(d,i){
+    return i*w/(dataset.length^2);
+  });
 
-const svg=d3.select("body")
-  .append("svg")
-  .attr("width",1000)
-  .attr("height",400);
-
-svg.selectAll("circle")
-  .data(dataset2D)
+rectsvg.selectAll("text")
+  .data(dataset)
   .enter()
-  .append("circle")
-  .attr("cx",function(d){
-    return d[0];
+  .append("text")
+  .text(function(d){
+    return d;
   })
-  .attr("cy",function(d){
-    return d[1];
+  .attr("y",function(d){
+    return h-yScale(d);
   })
-  .attr("r",10);
+  .attr("x",function(d,i){
+    return i*w/(dataset.length^2);
+  })
+  .attr("fill","red");

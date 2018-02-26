@@ -1,73 +1,69 @@
-//단위 컨버터 사용
-const parseTime= d3.timeParse("%Y. %m. %d");
-function smpConverter(x){
-  return {
-    date:parseTime(x.date),
-    land:parseInt(x.land),
-    jeju:parseInt(x.jeju),
-    total:parseInt(x.total)
-  }
-};
-//이미지 골격에 한 정의
-const width=1000,height=500;
-const margin = {
-  top: 20, right: 20, bottom: 30, left: 50
-};
-//SVG 후속 오브젝트 정의
-const smpSvg=d3.select("body")
+const dataset = [ 5, 10, 13, 19, 21, 25, 22, 18, 15, 13,11, 12, 15, 20, 18, 17, 16, 18, 23, 25 ];
+
+const width = 600,
+  height =250,
+  barpadding =0.05,
+  x_margin = 0.1,
+  y_margin = 0.1,
+  xAxis_margin=0.07,
+  yAxis_margin=0.05;
+
+
+const xScale= d3.scaleBand()
+  .domain(d3.range(dataset.length))
+  .range([width*x_margin,width*(1-x_margin)])
+  .paddingInner(0.05);
+
+const text_margin=xScale.bandwidth()/10;
+
+const yScale =d3.scaleLinear()
+  .domain([0,d3.max(dataset,function(d){
+    return d;
+  })])
+  .range([height*y_margin,height*(1-y_margin)]);
+
+const xAxis= d3.axisBottom(xScale);
+const yAxis= d3.axisLeft(height-yScale);
+
+const barsvg=d3.select("body")
   .append("svg")
   .attr("width",width)
   .attr("height",height);
-const g = smpSvg.append("g") //
-  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-//구체적인 그래프에 대한 정의
 
-
-const xScale = d3.scaleTime() //x-scale에 대한 정의
-  .rangeRound([margin.left, width-margin.right]);
-const yScale = d3.scaleLinear()//y-scale에 대한 정의
-  .rangeRound([height-margin.bottom, margin.top]);
-const line = d3.line()
-  .x(function(d){return xScale(d.date);})
-  .y(function(d){return yScale(d.total);});
-
-d3.tsv("past/data12.tsv",(err,data)=>{
-  //형변환을 시킨다.
-  let parsedData=data.map(function(eachData){
-    return smpConverter(eachData);
+barsvg.selectAll("rect")
+  .data(dataset)
+  .enter()
+  .append("rect")
+  .attr("width",xScale.bandwidth())
+  .attr("height",function(d){
+    return yScale(d);
+  })
+  .attr("x",function(d,i){
+    return xScale(i);
+  })
+  .attr("y",function(d){
+    return height*(1-y_margin)-yScale(d);
   });
 
-  xScale.domain(d3.extent(parsedData, function(d) {
-   return d.date; }));
-  yScale.domain(d3.extent(parsedData, function(d) { return d.total; }));
+barsvg.selectAll("text")
+  .data(dataset)
+  .enter()
+  .append("text")
+  .text(function(d){
+    return d;
+  })
+  .attr("x",function(d,i){
+    return xScale(i)+text_margin;
+  })
+  .attr("y",function(d){
+    return height*(1-y_margin)-yScale(d)+20;
+  })
+  .attr("fill","red");
 
-  g.append("path")
-      .datum(parsedData)
-      .attr("fill", "none")
-      .attr("stroke", "steelblue")
-      .attr("stroke-linejoin", "round")
-      .attr("stroke-linecap", "round")
-      .attr("stroke-width", 1.5)
-      .attr("d", line);
+barsvg.append("g")
+  .attr("transform",`translate(0,${height*(1-xAxis_margin)})`)
+  .call(xAxis);
 
-  g.append("g")
-    .attr("transform", "translate(0," + (height-margin.top) + ")")
-      .call(d3.axisBottom(xScale));
-
-  g.append("g")
-      .call(d3.axisLeft(yScale));
-
-  /*
-  for(let i=0;i<data.length;i++){
-     parsedData.date[i]=smpConverter(data[i]).date;
-     parsedData.land[i]=smpConverter(data[i]).land;
-     parsedData.jeju[i]=smpConverter(data[i]).land;
-
-  };
-  */
-  //scale을 추가한다.
-  /*
-  xScale.domain
-  yScale.domain
-  */
-});
+barsvg.append("g")
+  .attr("transform",`translate(${width*yAxis_margin},0)`)
+  .call(yAxis);
